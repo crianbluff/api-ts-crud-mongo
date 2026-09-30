@@ -1,0 +1,17 @@
+services:
+  api-ts-container:
+    container_name: api-ts-container
+    image: api-ts-image
+    build: .
+    ports:
+      - 3007:3007
+    env_file:
+      - .env
+    networks:
+      - api-ts-network
+
+networks:
+  api-ts-network:
+
+volumes:
+  api-ts-mongo-data:
