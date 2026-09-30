@@ -1,27 +1,12 @@
-import { generateUUID } from "./validation";
+import mongoose from 'mongoose';
+import { config } from './config';
 
-export interface IDb {
-  id: string;
-  name: string;
-  age: number;
-}
-
-export const data: IDb[] = [
-  {
-    name: 'alo123',
-    age: 12,
-    id: generateUUID()
-  },
-
-  {
-    name: 'Cristian',
-    age: 23,
-    id: generateUUID()
-  },
-
-  {
-    name: 'cast',
-    age: 43,
-    id: generateUUID()
-  },
-];
+export const connectDB = async (): Promise<void> => {
+  try {
+    await mongoose.connect(config.HOST_DB!);
+    console.log('MongoDB connected successfully');
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    process.exit(1);
+  }
+};

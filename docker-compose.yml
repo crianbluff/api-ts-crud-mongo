@@ -9,6 +9,21 @@ services:
       - .env
     networks:
       - api-ts-network
+    depends_on:
+      - db-api-ts-container
+
+  db-api-ts-container:
+    container_name: db-api-ts-container
+    image: mongo:7.0-jammy
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    ports:
+    - "27018:27017"
+    volumes:
+      - api-ts-mongo-data:/data/db
+    networks:
+      - api-ts-network
 
 networks:
   api-ts-network:
